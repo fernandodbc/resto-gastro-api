@@ -1,3 +1,6 @@
+.vagrant/*
+*.sublime-workspace
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
