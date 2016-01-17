@@ -1,0 +1,8 @@
+fdbc_resto_api_v1:
+    resource: "@FdbcRestoApiV1Bundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

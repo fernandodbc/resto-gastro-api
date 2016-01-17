@@ -1,0 +1,4 @@
+services:
+#    fdbc_resto_back.example:
+#        class: Fdbc\Resto\BackBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
