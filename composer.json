@@ -1,6 +1,6 @@
 {
-    "name": "resto-gastro-api",
-    "license": "mit",
+    "name": "restogastroapi",
+    "license": "MIT",
     "type": "project",
     "description": "API for Resto Gastro App",
     "autoload": {
