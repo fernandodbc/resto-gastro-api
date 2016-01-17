@@ -1,7 +1,8 @@
 {
-    "name": "vagrant/m",
-    "license": "proprietary",
+    "name": "resto-gastro-api",
+    "license": "mit",
     "type": "project",
+    "description": "API for Resto Gastro App",
     "autoload": {
         "psr-4": {
             "": "src/"
