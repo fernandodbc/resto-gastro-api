@@ -1,12 +1,14 @@
 <?php
 namespace Fdbc\Resto\BackBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use GuzzleHttp\Client;
 
-class ImportFromAgircultureMinistryCommand extends Command
+class ImportFromAgircultureMinistryCommand extends ContainerAwareCommand
 {
+
     protected function configure()
     {
         $this
@@ -17,7 +19,14 @@ class ImportFromAgircultureMinistryCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $text = 'Hello';
-        $output->writeln($text);
+        $client = new Client();
+        $res = $client->request('GET', $this->getContainer()->getParameter('data_source_url'), []);
+        if ($res->getStatusCode() == 200) {
+            $result = json_decode($res->getBody());
+            foreach ($result->records as $record) {
+                var_dump($record->recordid);
+                var_dump($record->fields);
+            }
+        }
     }
 }

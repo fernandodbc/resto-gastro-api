@@ -17,3 +17,4 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            Lmpo45gdfh3Qgv34ZsQx6hJm9è76jg
+    data_source_url: https://dgal.opendatasoft.com/api/records/1.0/search?dataset=inspections-restaurants&q=
