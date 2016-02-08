@@ -6,6 +6,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use GuzzleHttp\Client;
 
+use Fdbc\Resto\CoreBundle\Document\Restaurant;
+
 class ImportFromAgircultureMinistryCommand extends ContainerAwareCommand
 {
 
@@ -24,8 +26,26 @@ class ImportFromAgircultureMinistryCommand extends ContainerAwareCommand
         if ($res->getStatusCode() == 200) {
             $result = json_decode($res->getBody());
             foreach ($result->records as $record) {
-                var_dump($record->recordid);
-                var_dump($record->fields);
+                $restaurant = $this->getContainer()->get('doctrine_mongodb')
+                    ->getRepository('FdbcRestoCoreBundle:Restaurant')
+                    ->findOneBy(array('name' => $record->fields->nom, 'adress' => $record->fields->adresse));
+
+                if ($restaurant === null) {
+                    $restaurant = new Restaurant();
+                    $restaurant->setName($record->fields->nom);
+                    $restaurant->setAdress($record->fields->adresse);
+                    $restaurant->setZipCode($record->fields->code_postal);
+                    $restaurant->setLongName($record->fields->libelle_etablissement);
+                    $restaurant->setLat($record->fields->coordonnees_geo[0]);
+                    $restaurant->setLon($record->fields->coordonnees_geo[1]);
+                }
+
+                $restaurant->setInspectionDate($record->fields->date_inspection);
+                $restaurant->setScore($record->fields->evaluation);
+
+                $dm = $this->getContainer()->get('doctrine_mongodb')->getManager();
+                $dm->persist($restaurant);
+                $dm->flush();
             }
         }
     }
