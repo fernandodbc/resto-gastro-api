@@ -40,12 +40,12 @@ class Restaurant
     protected $inspectionDate;
 
     /**
-     * @MongoDB\Double
+     * @MongoDB\Float
      */
     protected $lat;
 
     /**
-     * @MongoDB\Double
+     * @MongoDB\Float
      */
     protected $lon;
 

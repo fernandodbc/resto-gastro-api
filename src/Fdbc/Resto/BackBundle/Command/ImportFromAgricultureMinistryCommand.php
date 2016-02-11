@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 use Fdbc\Resto\CoreBundle\Document\Restaurant;
 
-class ImportFromAgircultureMinistryCommand extends ContainerAwareCommand
+class ImportFromAgricultureMinistryCommand extends ContainerAwareCommand
 {
 
     protected function configure()
