@@ -45,8 +45,8 @@ class ImportFromAgricultureMinistryCommand extends ContainerAwareCommand
 
                 $dm = $this->getContainer()->get('doctrine_mongodb')->getManager();
                 $dm->persist($restaurant);
-                $dm->flush();
             }
+            $dm->flush();
         }
     }
 }
