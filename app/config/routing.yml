@@ -1,10 +1,12 @@
-fdbc_resto_core:
-    resource: "@FdbcRestoCoreBundle/Controller/"
-    type:     annotation
-    prefix:   /
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+# fdbc_resto_api_v1:
+#     resource: "@FdbcRestoApiV1Bundle/Controller/"
+#     type:     annotation
+#     prefix:   /api/
 
 fdbc_resto_api_v1:
-    resource: "@FdbcRestoApiV1Bundle/Controller/"
-    type:     annotation
-    prefix:   /
-
+    type:     rest
+    resource: Fdbc\Resto\ApiV1Bundle\Controller\RestaurantController

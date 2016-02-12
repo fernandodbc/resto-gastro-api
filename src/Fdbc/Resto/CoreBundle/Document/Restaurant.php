@@ -3,7 +3,6 @@ namespace Fdbc\Resto\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-
 /**
  * @MongoDB\Document
  */
