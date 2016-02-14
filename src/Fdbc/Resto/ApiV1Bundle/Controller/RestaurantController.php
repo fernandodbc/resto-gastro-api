@@ -1,15 +1,11 @@
 <?php
 namespace Fdbc\Resto\ApiV1Bundle\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-
-use Fdbc\Resto\CoreBundle\Document\Restaurant;
 
 class RestaurantController extends FOSRestController
 {
