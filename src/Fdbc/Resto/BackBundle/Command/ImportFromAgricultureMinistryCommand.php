@@ -21,6 +21,10 @@ class ImportFromAgricultureMinistryCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln('Import des données des restaurants');
+        $all = 0;
+        $inserted = 0;
+
         $client = new Client();
         $res = $client->request('GET', $this->getContainer()->getParameter('data_source_url'), []);
         if ($res->getStatusCode() == 200) {
@@ -28,16 +32,18 @@ class ImportFromAgricultureMinistryCommand extends ContainerAwareCommand
             foreach ($result->records as $record) {
                 $restaurant = $this->getContainer()->get('doctrine_mongodb')
                     ->getRepository('FdbcRestoCoreBundle:Restaurant')
-                    ->findOneBy(array('name' => $record->fields->nom, 'adress' => $record->fields->adresse));
+                    ->findOneBy(array('name' => $record->fields->nom, 'address' => $record->fields->adresse));
 
                 if ($restaurant === null) {
                     $restaurant = new Restaurant();
                     $restaurant->setName($record->fields->nom);
-                    $restaurant->setAdress($record->fields->adresse);
+                    $restaurant->setAddress($record->fields->adresse);
                     $restaurant->setZipCode($record->fields->code_postal);
                     $restaurant->setLongName($record->fields->libelle_etablissement);
                     $restaurant->setLat($record->fields->coordonnees_geo[0]);
                     $restaurant->setLon($record->fields->coordonnees_geo[1]);
+                    $restaurant->setCity($record->fields->localite);
+                    $inserted++;
                 }
 
                 $restaurant->setInspectionDate($record->fields->date_inspection);
@@ -45,8 +51,12 @@ class ImportFromAgricultureMinistryCommand extends ContainerAwareCommand
 
                 $dm = $this->getContainer()->get('doctrine_mongodb')->getManager();
                 $dm->persist($restaurant);
+                $all++;
             }
             $dm->flush();
+
+            $output->writeln('<info>Nombre de restaurants : '.$all.'</info>');
+            $output->writeln('<info>dont '.$inserted.' ajoutés</info>');
         }
     }
 }

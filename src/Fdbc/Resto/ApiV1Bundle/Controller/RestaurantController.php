@@ -20,7 +20,6 @@ class RestaurantController extends FOSRestController
      * )
      *
      * @QueryParam(name="name", description="Name")
-     * @QueryParam(name="full_address", description="Full address (including zip code and city).")
      * @QueryParam(name="address", description="Address.")
      * @QueryParam(name="zip_code", description="Zip code.")
      * @QueryParam(name="city", description="City.")
@@ -35,12 +34,22 @@ class RestaurantController extends FOSRestController
     public function getRestaurantsAction(ParamFetcher $paramFetcher)
     {
         $parameters = $paramFetcher->all();
+        
+        $restaurants = [];
+        $count = 0;
 
-        //var_dump($parameters);
+        $restaurantsCursor = $this->get('doctrine_mongodb')
+            ->getRepository('FdbcRestoCoreBundle:Restaurant')
+            ->getRestaurants($parameters, $parameters['per_page'], ($parameters['page'] * $parameters['per_page'] - $parameters['per_page']));
+
+        foreach ($restaurantsCursor as $restaurant) {
+            $restaurants[] = $restaurant;
+            $count++;
+        }
 
         return [
-            'total'       => 0,
-            'restaurants' => [],
+            'total' => $count,
+            'data' => $restaurants,
         ];
     }
 }

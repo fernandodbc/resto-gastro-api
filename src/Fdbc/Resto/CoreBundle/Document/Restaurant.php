@@ -4,7 +4,7 @@ namespace Fdbc\Resto\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass="Fdbc\Resto\CoreBundle\Repository\RestaurantRepository")
  */
 class Restaurant
 {
@@ -26,12 +26,17 @@ class Restaurant
     /**
      * @MongoDB\String
      */
-    protected $adress;
+    protected $address;
 
     /**
      * @MongoDB\String
      */
     protected $zipCode;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $city;
 
     /**
      * @MongoDB\Date
@@ -108,25 +113,25 @@ class Restaurant
     }
 
     /**
-     * Set adress
+     * Set address
      *
-     * @param string $adress
+     * @param string $address
      * @return self
      */
-    public function setAdress($adress)
+    public function setAddress($address)
     {
-        $this->adress = $adress;
+        $this->address = $address;
         return $this;
     }
 
     /**
-     * Get adress
+     * Get address
      *
-     * @return string $adress
+     * @return string $address
      */
-    public function getAdress()
+    public function getAddress()
     {
-        return $this->adress;
+        return $this->address;
     }
 
     /**
@@ -149,6 +154,28 @@ class Restaurant
     public function getZipCode()
     {
         return $this->zipCode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return self
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string $city
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 
     /**
