@@ -41,5 +41,4 @@ class RestaurantRepository extends DocumentRepository
 
         return $qb->getQuery()->execute();
     }
-
 }
