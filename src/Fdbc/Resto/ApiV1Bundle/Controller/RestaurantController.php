@@ -15,6 +15,7 @@ class RestaurantController extends FOSRestController
      *  description="Search restaurant"
      * )
      *
+     * @QueryParam(name="q", description="Global Query")
      * @QueryParam(name="name", description="Name")
      * @QueryParam(name="address", description="Address.")
      * @QueryParam(name="zip_code", description="Zip code.")
